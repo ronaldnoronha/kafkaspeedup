@@ -25,17 +25,17 @@ def worker(numberOfMessages, centers, producer, results, index):
     t1 = time()
     totalSent = 0
     features, target = create_data(numberOfMessages, 3, centers, 3)
-    timeSendKafka = 0
-    messages = []
+    # timeSendKafka = 0
+    # messages = []
     for i in range(len(features)):
-        messages.append(str(datetime.now()) + ',' + ' '.join([str(j) for j in features[i]]) + ',' + str(target[i]))
-        totalSent += sys.getsizeof(messages[i].encode('utf-8'))
+        message = str(datetime.now()) + ',' + ' '.join([str(j) for j in features[i]]) + ',' + str(target[i])
+        totalSent += sys.getsizeof(message.encode('utf-8'))
+        lock.acquire()
+        producer.send('test',value = message)
+        lock.release()
 
-    t2 = time()
-    lock.acquire()
-    producer.send('test', messages)
-    lock.release()
-    t3 = time()
+
+
     results[index] = totalSent/(time()-t1)
 
 lock = Lock()

@@ -49,9 +49,10 @@ def startKafka(dataSize='1000'):
     kafka.run('tmux send -t kafka:1 /home/ronald/kafka_2.12-2.5.0/bin/kafka-server-start.sh\ '
                '/home/ronald/kafka_2.12-2.5.0/config/server.properties ENTER')
     sleep(5)
-    kafka.run('tmux send -t kafka:2 python3\ /home/ronald/kafkaProducer.py\ '+dataSize+' ENTER')
-    sleep(1)
     kafka.run('tmux send -t kafka:3 python3\ /home/ronald/kafkaConsumer.py ENTER')
+    kafka.run('tmux send -t kafka:2 python3\ /home/ronald/kafkaProducer.py\ '+dataSize+' ENTER')
+
+
 
 
 def stopKafka():
