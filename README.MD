@@ -6,3 +6,6 @@
 ## delete topic
 ```bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic <topic>```
 
+## list of topics
+```bin/kafka-topics.sh --list --zookeeper localhost:2181```
+
